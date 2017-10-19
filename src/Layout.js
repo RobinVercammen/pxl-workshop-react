@@ -12,12 +12,16 @@ import CaloriesPage from './calories/calories.page';
 import HabitsPage from './habits/habits.page';
 import SettingsPage from './settings/settings.page';
 import WeightPage from './weight/weight.page';
-
+import Store from './common/store';
 
 class Layout extends Component {
     constructor() {
         super();
-        this.state = { drawerOpen: false };
+        Store.subscribe(() => {
+            const title = Store.getState().title;
+            this.setState({ title });
+        });
+        this.state = { drawerOpen: false, title: '' };
     }
     toggleState = () => {
         const currentState = this.state.drawerOpen;
@@ -28,7 +32,7 @@ class Layout extends Component {
             <Router>
                 <div>
                     <AppBar
-                        title="Your dashboard"
+                        title={this.state.title}
                         onLeftIconButtonTouchTap={this.toggleState}
                     />
                     <Drawer open={this.state.drawerOpen}>

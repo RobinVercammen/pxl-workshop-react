@@ -17,7 +17,7 @@ import Store from './common/store';
 class Layout extends Component {
     constructor() {
         super();
-        Store.subscribe(() => {
+        this.unsubcribe = Store.subscribe(() => {
             const title = Store.getState().title;
             this.setState({ title });
         });
@@ -62,6 +62,9 @@ class Layout extends Component {
                 </div>
             </Router>
         );
+    }
+    componentWillUnmount() {
+        this.unsubcribe();
     }
 }
 

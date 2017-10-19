@@ -37,8 +37,10 @@ class CaloriesAddPage extends Component {
         // date in juiste formaat YYYY-MM-dd => ddMMYYYY
         const momentDate = moment(date);
         const dateToSend = momentDate.format('DDMMYYYY');
-        HttpService.addCalorieEntry(dateToSend, calories).then(() => {
+        const id = HttpService.getId();
+        HttpService.addCalorieEntry(dateToSend, calories, id).then(() => {
             this.props.addEntry({
+                "id": id,
                 "userId": 1,
                 "date": dateToSend,
                 "weight": calories

@@ -11,6 +11,11 @@ const layoutreducer = (state = initialState, action) => {
             return { ...state, ...{ calorieEntries: action.payload } };
         case 'ADD_CALORIEENTRY':
             return { ...state, ...{ calorieEntries: [...state.calorieEntries, action.payload] } };
+        case 'DELETE_CALORIEENTRY':
+            const date = action.payload;
+            const entryToDeleteIndex = state.calorieEntries.findIndex(e => e.date === date);
+            const calorieEntries = [...state.calorieEntries.slice(0, entryToDeleteIndex), ...state.calorieEntries.slice(entryToDeleteIndex + 1)];
+            return { ...state, ...{ calorieEntries: calorieEntries } };
         default:
             return state;
     }

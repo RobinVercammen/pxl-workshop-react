@@ -16,11 +16,15 @@ class CaloriesPage extends Component {
             hasFetchedCalorieEntries = true;
         }
     }
+    delete = (date, id) => {
+        this.props.deleteEntry(date);
+        HttpService.deleteCalorieEntry(id);
+    }
     render() {
         const fetchedEntries = this.props.calorieEntries;
         return (
             <div>
-                <CaloriesTable entries={fetchedEntries} />
+                <CaloriesTable entries={fetchedEntries} delete={this.delete} />
                 <Link to="/calories/add">
                     <FloatingActionButton style={{ position: 'fixed', right: '15px', bottom: '15px' }}>
                         <ContentAdd />
@@ -45,6 +49,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         ...mapDispatchToPropsTitle(dispatch, ownProps),
         setEntries: (entries) => {
             dispatch({ type: 'SET_CALORIEENTRIES', payload: entries });
+        },
+        deleteEntry: (date) => {
+            dispatch({ type: 'DELETE_CALORIEENTRY', payload: date })
         }
     }
 }

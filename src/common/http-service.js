@@ -7,7 +7,7 @@ class HttpService {
         this.userId = userId;
     }
 
-    getId(){
+    getId() {
         return Math.random() * 10000000;
     }
 
@@ -15,8 +15,11 @@ class HttpService {
         return axios.get(`${this.baseUrl}/calorieEntries?userId=${this.userId}`).then(r => r.data);
     }
 
-    addCalorieEntry(date, calories) {
-        return axios.post(`${this.baseUrl}/calorieEntries`, { id: this.getId(),userId: this.userId, date: date, weight: calories });
+    addCalorieEntry(date, calories, id) {
+        return axios.post(`${this.baseUrl}/calorieEntries`, { id: id, userId: this.userId, date: date, weight: calories });
+    }
+    deleteCalorieEntry(id) {
+        return axios.delete(`${this.baseUrl}/calorieEntries/${id}`)
     }
 }
 

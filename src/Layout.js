@@ -12,16 +12,12 @@ import CaloriesPage from './calories/calories.page';
 import HabitsPage from './habits/habits.page';
 import SettingsPage from './settings/settings.page';
 import WeightPage from './weight/weight.page';
-import Store from './common/store';
+import { connect } from 'react-redux';
 
 class Layout extends Component {
     constructor() {
         super();
-        this.unsubcribe = Store.subscribe(() => {
-            const title = Store.getState().title;
-            this.setState({ title });
-        });
-        this.state = { drawerOpen: false, title: '' };
+        this.state = { drawerOpen: false };
     }
     toggleState = () => {
         const currentState = this.state.drawerOpen;
@@ -32,7 +28,7 @@ class Layout extends Component {
             <Router>
                 <div>
                     <AppBar
-                        title={this.state.title}
+                        title={this.props.title}
                         onLeftIconButtonTouchTap={this.toggleState}
                     />
                     <Drawer open={this.state.drawerOpen}>
@@ -63,9 +59,12 @@ class Layout extends Component {
             </Router>
         );
     }
-    componentWillUnmount() {
-        this.unsubcribe();
+}
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        title: state.title,
     }
 }
 
-export default Layout;
+export default connect(mapStateToProps)(Layout);

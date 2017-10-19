@@ -6,6 +6,7 @@ import DatePicker from 'material-ui/DatePicker';
 import FlatButton from 'material-ui/FlatButton';
 import HttpService from '../common/http-service';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 class CaloriesAddPage extends Component {
     constructor() {
@@ -22,7 +23,7 @@ class CaloriesAddPage extends Component {
             <div>
                 <form onSubmit={this.save}>
                     <DatePicker hintText="Date" name="date" />
-                    <TextField hintText="calories" name="calories" />
+                    <TextField hintText="calories" name="calories" type="number" />
                     <FlatButton label="Default" type="submit" />
                 </form>
                 {this.state.showMessage ? message : null}
@@ -33,7 +34,10 @@ class CaloriesAddPage extends Component {
         ev.preventDefault();
         const date = ev.target['date'].value;
         const calories = ev.target['calories'].value;
-        HttpService.addCalorieEntry(date, calories).then(() => {
+        // date in juiste formaat YYYY-MM-dd => ddMMYYYY
+        const momentDate = moment(date);
+        const dateToSend = momentDate.format('DDMMYYYY');
+        HttpService.addCalorieEntry(dateToSend, calories).then(() => {
             this.setState({ showMessage: true });
         });
     }

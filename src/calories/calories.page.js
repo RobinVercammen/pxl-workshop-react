@@ -7,9 +7,14 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { Link } from 'react-router-dom';
 
+let hasFetchedCalorieEntries = false;
+
 class CaloriesPage extends Component {
     componentWillMount() {
-        HttpService.getCalories().then(fetchedEntries => this.props.setEntries(fetchedEntries))
+        if (!hasFetchedCalorieEntries) {
+            HttpService.getCalories().then(fetchedEntries => this.props.setEntries(fetchedEntries));
+            hasFetchedCalorieEntries = true;
+        }
     }
     render() {
         const fetchedEntries = this.props.calorieEntries;
@@ -17,7 +22,7 @@ class CaloriesPage extends Component {
             <div>
                 <CaloriesTable entries={fetchedEntries} />
                 <Link to="/calories/add">
-                    <FloatingActionButton style={{ position: 'absolute', right: '15px', bottom: '15px' }}>
+                    <FloatingActionButton style={{ position: 'fixed', right: '15px', bottom: '15px' }}>
                         <ContentAdd />
                     </FloatingActionButton>
                 </Link>

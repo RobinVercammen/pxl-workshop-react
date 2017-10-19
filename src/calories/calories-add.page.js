@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import mapDispatchToProps from '../common/title-dispatch-to-props';
+import mapDispatchToPropsTitle from '../common/title-dispatch-to-props';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import FlatButton from 'material-ui/FlatButton';
@@ -38,11 +38,25 @@ class CaloriesAddPage extends Component {
         const momentDate = moment(date);
         const dateToSend = momentDate.format('DDMMYYYY');
         HttpService.addCalorieEntry(dateToSend, calories).then(() => {
+            this.props.addEntry({
+                "userId": 1,
+                "date": dateToSend,
+                "weight": calories
+            });
             this.setState({ showMessage: true });
         });
     }
     componentDidMount() {
         this.props.setTitle('Update Calorie Intake');
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        ...mapDispatchToPropsTitle(dispatch, ownProps),
+        addEntry: (entry) => {
+            dispatch({ type: 'ADD_CALORIEENTRY', payload: entry });
+        }
     }
 }
 

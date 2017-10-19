@@ -9,6 +9,8 @@ const layoutreducer = (state = initialState, action) => {
             return { ...state, ...{ title: action.payload } };
         case 'SET_CALORIEENTRIES':
             return { ...state, ...{ calorieEntries: action.payload } };
+        case 'ADD_CALORIEENTRY':
+            return { ...state, ...{ calorieEntries: [...state.calorieEntries, action.payload] } };
         default:
             return state;
     }

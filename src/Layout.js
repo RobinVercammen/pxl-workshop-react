@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 import DashboardPage from './dashboard/dashboard.page';
 import CaloriesPage from './calories/calories.page';
+import CaloriesAddPage from './calories/calories-add.page';
 import HabitsPage from './habits/habits.page';
 import SettingsPage from './settings/settings.page';
 import WeightPage from './weight/weight.page';
@@ -51,7 +52,8 @@ class Layout extends Component {
                         </MenuItem>
                     </Drawer>
                     <Route exact={true} path="/" component={DashboardPage} />
-                    <Route path="/calories" component={CaloriesPage} />
+                    <Route exact={true} path="/calories" component={CaloriesPage} />
+                    <Route path="/calories/add" component={CaloriesAddPage} />
                     <Route path="/habits" component={HabitsPage} />
                     <Route path="/settings" component={SettingsPage} />
                     <Route path="/weight" component={WeightPage} />

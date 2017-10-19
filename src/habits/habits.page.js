@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import mapDispatchToProps from '../common/title-dispatch-to-props';
 
 class HabitsPage extends Component {
     render(){
@@ -6,6 +8,9 @@ class HabitsPage extends Component {
             <h2>Habits</h2>
         )
     }
+    componentDidMount() {
+        this.props.setTitle('Habits');
+    }    
 }
 
-export default HabitsPage;
+export default connect(undefined, mapDispatchToProps)(HabitsPage);

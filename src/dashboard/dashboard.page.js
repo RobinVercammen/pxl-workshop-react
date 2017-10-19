@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import mapDispatchToProps from '../common/title-dispatch-to-props';
 
 class DashboardPage extends Component {
     render(){
@@ -6,6 +8,9 @@ class DashboardPage extends Component {
             <h2>Dashboard</h2>
         )
     }
+    componentDidMount() {
+        this.props.setTitle('Dashboard');
+    }    
 }
 
-export default DashboardPage;
+export default connect(undefined, mapDispatchToProps)(DashboardPage);

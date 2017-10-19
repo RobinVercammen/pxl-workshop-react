@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Store from '../common/store';
+import { connect } from "react-redux";
+import mapDispatchToProps from '../common/title-dispatch-to-props';
 
 class WeightPage extends Component {
     render() {
@@ -8,8 +9,8 @@ class WeightPage extends Component {
         )
     }
     componentDidMount() {
-        Store.dispatch({ type: 'SET_TITLE', payload: 'Weight' });
+        this.props.setTitle('Weight');
     }
 }
 
-export default WeightPage;
+export default connect(undefined, mapDispatchToProps)(WeightPage);

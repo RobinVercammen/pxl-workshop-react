@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import CaloriesTable from './calories-table';
 import HttpService from '../common/http-service';
+import { connect } from "react-redux";
+import mapDispatchToProps from '../common/title-dispatch-to-props';
 
 class CaloriesPage extends Component {
     constructor() {
@@ -16,6 +18,9 @@ class CaloriesPage extends Component {
             <CaloriesTable entries={fetchedEntries} />
         );
     }
+    componentDidMount() {
+        this.props.setTitle('Calories');
+    }    
 }
 
-export default CaloriesPage;
+export default connect(undefined, mapDispatchToProps)(CaloriesPage);
